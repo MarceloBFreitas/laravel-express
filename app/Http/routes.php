@@ -15,4 +15,9 @@
 //    return view('home.index');
 //});
 
-Route::get('/', 'HomeController@index');
+//Route::get('/', 'HomeController@index');
+
+Route::get('/','PostController@index');
+
+
+Route::get('admin','PostsAdminController@index');
