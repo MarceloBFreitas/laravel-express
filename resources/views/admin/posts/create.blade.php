@@ -22,6 +22,11 @@
     @include('admin.posts.__form')
 
     <div class="form-group">
+        {!! Form::label('tags','Tags:',['class'=>'control-label']) !!}
+        {!! Form::text('tags',null,['class'=>'form-control']) !!}
+    </div>
+
+    <div class="form-group">
         {!! Form::submit('Adicionar',['class'=>'btn btn-primary']) !!}
     </div>
 

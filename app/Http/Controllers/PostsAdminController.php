@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,8 +33,9 @@ class PostsAdminController extends Controller
 
     public function store(PostRequest $request)
     {
-
-        $this->post->create($request->all());
+        //pega o post criado
+        $post = $this->post->create($request->all());
+        $post->tags()->sync($this->gettagsId($request->tags)); //se não existe relação cria, se não existe mais remove, faz magica
 
         return redirect()->route('admin.index');
     }
@@ -47,6 +49,8 @@ class PostsAdminController extends Controller
     public function update($id,PostRequest $request)
     {
         $this->post->find($id)->update($request->all());
+        $post = $this->post->find($id);
+        $post->tags()->sync($this->gettagsId($request->tags));
         return redirect()->route('admin.index');
     }
 
@@ -54,6 +58,25 @@ class PostsAdminController extends Controller
     {
         $this->post->find($id)->delete();
         return redirect()->route('admin.index');
+    }
+
+    private function gettagsId($tags)
+    {
+        $taglist = explode(',',$tags);
+        $taglist = array_map('trim',$taglist);
+        //precisa eliminar os campos vazios
+        $taglist = array_filter($taglist);
+
+        $tagsids = []; //criando um array vazio para usar de aux
+
+        foreach ($taglist as $tagname)
+        {
+            $tagsids[] = Tag::firstOrCreate(['name' => $tagname])->id;
+            //verifica se existe a tag no banco e devolve apenas o ID e se não existir ele cria e retorna o ID
+
+        }
+
+        return $tagsids;
     }
 
 }

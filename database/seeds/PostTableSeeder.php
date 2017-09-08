@@ -12,7 +12,7 @@ class PostTableSeeder extends Seeder
      */
     public function run()
     {
-        Post::truncate(); //apaga tudo
+       // Post::truncate(); //apaga tudo
         factory('App\Post',15)->create();
     }
 }

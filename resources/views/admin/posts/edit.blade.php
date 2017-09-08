@@ -20,6 +20,11 @@
     @include('admin.posts.__form')
 
     <div class="form-group">
+        {!! Form::label('tags','Tags:',['class'=>'control-label']) !!}
+        {!! Form::text('tags',$post->TagList,['class'=>'form-control']) !!}
+    </div>
+
+    <div class="form-group">
         {!! Form::submit('Atualizar',['class'=>'btn btn-primary']) !!}
     </div>
 
