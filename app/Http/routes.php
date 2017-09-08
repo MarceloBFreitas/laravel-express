@@ -20,7 +20,21 @@
 Route::get('/','PostController@index');
 
 
+Route::get('/auth',function (){
+
+    if(Auth::attempt()){
+
+    }
+
+});
+
+Route::get('/auth/logout',function (){
+    Auth::logout();
+});
+
+
 Route::group(['prefix'=>'admin'],function (){
+//Route::group(['prefix'=>'admin','middleware'=>'auth'],function (){
 
     Route::get('/',['as'=>'admin.index','uses'=>'PostsAdminController@index']);
 
