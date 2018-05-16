@@ -28,7 +28,7 @@ class HomeController extends Controller
 
     public function create()
     {
-        //
+        return false;
     }
 
     public function store(Request $request)
